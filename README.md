@@ -599,11 +599,22 @@ For production use, consider adding:
 - [Binance FIX API Guide](https://developers.binance.com/docs/binance-spot-api-docs)
 - [QuickFIXn Documentation](https://github.com/connamara/quickfixn)
 
+## Contributing
+Contributions are welcome!
+Please feel free to submit bugs and make feature requests [here](https://github.com/AlexSilver9/BinanceFixMarketdataConnector/issues)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) files for details.
 
 This product includes software developed by quickfixengine.org (http://www.quickfixengine.org/).
+
+## Project URL
+Project source code is available at https://github.com/AlexSilver9/BinanceFixMarketdataConnector.
+
+## Authors
+[Alexander Silvennoinen](https://www.linkedin.com/in/alexander-silvennoinen/)
+
 
 ## Disclaimer
 
