@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "//": "Binance FIX Market Data Connector Configuration",
+
+  "Binance": {
+    "//ApiKeyPath": "Path to file containing your Binance API Key (make sure to keep it secret)",
+    "//ApiKeyPathPriority": "Priority: 1. BINANCE_API_KEY env var, 2. api.key file, 3. ApiKey field below",
+    "ApiKeyPath": "api.key",
+
+    "//ApiKey": "(Optional) Hardcoded API Key - not recommended, use api.key file or BINANCE_API_KEY environment variable instead",
+    "ApiKey": "",
+
+    "//PrivateKeyPath": "Path to your Ed25519 private key file (PEM format).",
+    "//PrivateKeyGeneration": "To generate a key file, see: https://www.binance.com/en/support/faq/detail/6b9a63f1e3384cf48a2eedb82767a69a",
+    "//PrivateKeyPathEnvironment": "You can also set BINANCE_PRIVATE_KEY_PATH as environment variable",
+    "PrivateKeyPath": "keys/private.ed25519.pem"
+  },
+  
+  "Logging": {
+    "//LogLevel": "Available levels: Trace, Debug, Information (default), Warning, Error, Critical, None",
+    "//LogLevelEnvironment": "You can also set LOG_LEVEL as environment variable",
+    
+    "//Used LogLevel_Details": {
+      "Debug": "Verbose - includes QuickFIX messages, signatures, and market data processing",
+      "Information": "Normal - shows market data updates, connection status, and important events",
+      "Warning": "Important issues that don't stop the application",
+      "Error": "Errors that need attention"
+    },
+    
+    "LogLevel": "Information"
+  }
+}
