@@ -4,9 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BinanceFixMarketdataConnector;
 
-/// <summary>
-/// High-level connector for Binance FIX Market Data API
-/// </summary>
+/// <summary>High-level connector for Binance FIX market data API with subscription management</summary>
 public class FixMarketDataConnector
 {
     private readonly FixApplicationCallbacks _callbacks;

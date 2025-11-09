@@ -5,7 +5,7 @@ using QuickFix.Fields;
 namespace BinanceFixMarketdataConnector;
 
 /// <summary>
-/// Handles processing of market data messages from Binance FIX API
+/// Processes market data messages (snapshot/incremental/reject), maintains in-memory cache by symbol
 /// </summary>
 public class MarketDataHandler(ILogger<MarketDataHandler> logger)
 {

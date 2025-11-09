@@ -2,15 +2,13 @@ using Microsoft.Extensions.Logging;
 
 namespace BinanceFixMarketdataConnector;
 
-/// <summary>
-/// Configures logging for the application
-/// </summary>
+/// <summary>Console logging configuration</summary>
 public static class LoggingConfiguration
 {
     /// <summary>
     /// Creates a logger factory with console logging configured for single-line output with UTC timestamps
     /// </summary>
-    /// <param name="logLevel">Optional log level from environment variable. Defaults to Information.</param>
+    /// <param name="logLevel">Log level string (trace/debug/info/warning/error/critical/none), defaults to Information if invalid</param>
     /// <returns>Configured ILoggerFactory</returns>
     public static ILoggerFactory CreateLoggerFactory(string? logLevel = null)
     {

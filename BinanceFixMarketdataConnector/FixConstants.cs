@@ -1,8 +1,6 @@
 namespace BinanceFixMarketdataConnector;
 
-/// <summary>
-/// FIX protocol constants for Binance Market Data API
-/// </summary>
+/// <summary>FIX protocol constants for Binance market data API</summary>
 public static class FixConstants
 {
     public static class MsgTypes

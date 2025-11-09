@@ -5,7 +5,7 @@
   "Binance": {
     "//ApiKeyPath": "Path to file containing your Binance API Key (make sure to keep it secret)",
     "//ApiKeyPathPriority": "Priority: 1. BINANCE_API_KEY env var, 2. api.key file, 3. ApiKey field below",
-    "ApiKeyPath": "api.key",
+    "ApiKeyPath": "keys/api.key",
 
     "//ApiKey": "(Optional) Hardcoded API Key - not recommended, use api.key file or BINANCE_API_KEY environment variable instead",
     "ApiKey": "",

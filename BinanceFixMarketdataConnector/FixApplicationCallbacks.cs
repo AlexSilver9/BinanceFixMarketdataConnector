@@ -5,9 +5,7 @@ using QuickFix.Fields;
 
 namespace BinanceFixMarketdataConnector;
 
-/// <summary>
-/// Implements QuickFIX IApplication callbacks and delegates to specialized handlers
-/// </summary>
+/// <summary>QuickFIX IApplication implementation delegating to authentication and market data handlers</summary>
 public class FixApplicationCallbacks(
     Ed25519AuthenticationHandler authHandler,
     MarketDataHandler marketDataHandler,

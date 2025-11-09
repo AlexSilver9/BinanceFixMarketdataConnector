@@ -20,7 +20,7 @@ public class Ed25519AuthenticationHandler
     /// Creates a new authentication handler by loading the private key from a PEM file
     /// </summary>
     /// <param name="apiKey">Binance API key</param>
-    /// <param name="privateKeyPath">Path to the Ed25519 private key PEM file</param>
+    /// <param name="privateKeyPath">Path to PEM-encoded Ed25519 private key</param>
     public Ed25519AuthenticationHandler(string apiKey, string privateKeyPath)
     {
         _apiKey = apiKey;
@@ -43,7 +43,7 @@ public class Ed25519AuthenticationHandler
     /// </summary>
     /// <param name="pemFilePath">Path to the PEM file</param>
     /// <returns>Ed25519 private key parameters</returns>
-    /// <exception cref="InvalidOperationException">Thrown if the PEM file contains an unexpected key type</exception>
+    /// <exception cref="InvalidOperationException">PEM file contains unexpected key type</exception>
     private static Ed25519PrivateKeyParameters LoadPrivateKeyFromPem(string pemFilePath)
     {
         using var reader = File.OpenText(pemFilePath);
@@ -62,9 +62,7 @@ public class Ed25519AuthenticationHandler
 
         throw new InvalidOperationException($"Unexpected key type: {keyObject?.GetType().Name}");
     }
-    /// <summary>
-    /// Adds authentication fields to a FIX logon message
-    /// </summary>
+    /// <summary>Signs logon message with Ed25519 signature, adds Binance-required authentication fields</summary>
     public void PrepareAndSignLogonMessage(Message message)
     {
         // Add RecvWindow to header

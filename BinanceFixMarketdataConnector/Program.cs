@@ -57,7 +57,7 @@ try
     logger.LogInformation("FIX Initiator started.");
 
     // Wait for logon with timeout
-    var maxWaitSeconds = 60;
+    var maxWaitSeconds = 15;
     var waitedSeconds = 0;
     while (!isLoggedIn && waitedSeconds < maxWaitSeconds)
     {

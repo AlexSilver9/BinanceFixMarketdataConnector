@@ -2,22 +2,20 @@ using Microsoft.Extensions.Configuration;
 
 namespace BinanceFixMarketdataConnector;
 
-/// <summary>
-/// Application configuration loaded from settings.json
-/// </summary>
+/// <summary>Configuration from config/settings.json with environment variable overrides</summary>
 public class ApplicationConfiguration
 {
     public BinanceConfiguration Binance { get; set; } = new();
     public LoggingSettings Logging { get; set; } = new();
 
     /// <summary>
-    /// Loads configuration from `settings.json` with optional environment variable overrides
+    /// Loads from config/settings.json, applies BINANCE_* env var overrides, reads API key from file if ApiKeyPath specified
     /// </summary>
     public static ApplicationConfiguration Load()
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("settings.json", optional: false, reloadOnChange: false)
+            .AddJsonFile("config/settings.json", optional: false, reloadOnChange: false)
             .AddEnvironmentVariables(prefix: "BINANCE_")
             .Build();
 
@@ -41,16 +39,16 @@ public class ApplicationConfiguration
         return config;
     }
 
-    /// <summary>
-    /// Validates that all required configuration values are present
-    /// </summary>
+    /// <summary>Validates required credentials are present</summary>
+    /// <exception cref="InvalidOperationException">Missing API key or private key path</exception>
+    /// <exception cref="FileNotFoundException">Private key file not found</exception>
     public void Validate()
     {
         if (string.IsNullOrWhiteSpace(Binance.ApiKey))
-            throw new InvalidOperationException("Binance API Key is required. Set it in settings.json or BINANCE_API_KEY environment variable.");
+            throw new InvalidOperationException("Binance API Key is required. Set it in config/settings.json or BINANCE_API_KEY environment variable.");
 
         if (string.IsNullOrWhiteSpace(Binance.PrivateKeyPath))
-            throw new InvalidOperationException("Private key path is required. Set it in settings.json or BINANCE_PRIVATE_KEY_PATH environment variable.");
+            throw new InvalidOperationException("Private key path is required. Set it in config/settings.json or BINANCE_PRIVATE_KEY_PATH environment variable.");
 
         if (!File.Exists(Binance.PrivateKeyPath))
             throw new FileNotFoundException($"Private key file not found: {Binance.PrivateKeyPath}");

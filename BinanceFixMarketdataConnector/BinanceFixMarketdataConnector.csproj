@@ -20,23 +20,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="settings.json">
+        <None Update="config/settings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="api.key">
+        <None Update="config/fix_config.cfg">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="config\fix_config.cfg">
+        <None Update="config/binance-spot-fix-md.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="config\binance-spot-fix-md.xml">
+        <None Update="keys/private.ed25519.pem">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="keys\private.ed25519.pem">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <None Update="keys/api.key">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="keys\public.ed25519.pem">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <None Update="LICENSE">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <Link>LICENSE</Link>
+        </None>
+        <None Update="LICENSE.QuickFIX">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <Link>LICENSE.QuickFIX.txt</Link>
         </None>
     </ItemGroup>
 </Project>

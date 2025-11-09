@@ -52,3 +52,29 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# IDEs
+.idea/
+*.DotSettings.user
+
+# macOS
+.DS_Store
+
+# API Keys and Secrets - NEVER COMMIT THESE
+**/keys/api.key
+**/keys/*.pem
+!**/keys/*.pem.example
+!**/keys/*.key.example
+
+# Configuration files with potential secrets
+**/config/settings.json
+settings.json
+
+# FIX Session State and Logs (may contain sensitive data)
+**/store/
+store/
+
+# Stunnel
+**/stunnel.log
+stunnel.log
+
