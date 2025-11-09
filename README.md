@@ -5,6 +5,8 @@ A .NET 9.0 console application that connects to Binance's FIX protocol market da
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![FIX Protocol](https://img.shields.io/badge/FIX-4.4-green.svg)](https://www.fixtrading.org/)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://dotnet.microsoft.com/download)
+[![Binance](https://img.shields.io/badge/Binance-FIX%20API-F0B90B?logo=binance)](https://developers.binance.com/docs/binance-spot-api-docs)
 
 ## Features
 
