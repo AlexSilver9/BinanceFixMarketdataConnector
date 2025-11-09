@@ -92,7 +92,7 @@ stunnel.exe BinanceFixMarketdataConnector\stunnel.conf
 #### Generate Ed25519 Key Pair
 
 Follow [Binance's guide](https://www.binance.com/en/support/faq/detail/6b9a63f1e3384cf48a2eedb82767a69a) to generate your Ed25519 key pair and register it with your Binance API key.
-The Binance API key **must** have at least `FIX READ` permission set. 
+The Binance API key **must** have at least `FIX READING` permission set. 
 
 #### Configure API Credentials
 
@@ -129,7 +129,7 @@ dotnet build
 
 ### Application Settings
 
-Edit `BinanceFixMarketdataConnector/config/settings.json`:
+Copy the example and edit `BinanceFixMarketdataConnector/config/settings.json` for your needs:
 
 ```json
 {
@@ -164,7 +164,7 @@ HeartBtInt=30
 
 ### Subscribing to Symbols
 
-Edit symbols in `BinanceFixMarketdataConnector/Program.cs`:
+Edit symbols in `BinanceFixMarketdataConnector/BinanceFixMarketdataConnector/Program.cs`:
 
 ```csharp
 var symbols = new[] {
@@ -356,7 +356,7 @@ ps aux | grep stunnel
 telnet localhost 9001
 
 # Verify API key permissions in Binance account settings
-# Ensure "FIX READ" is enabled
+# Ensure "FIX READING" is enabled
 
 # Check logs
 tail -f BinanceFixMarketdataConnector/bin/Debug/net9.0/log/*.messages.current.log
@@ -442,9 +442,11 @@ This will show:
 QuickFIX logs are stored in:
 ```
 BinanceFixMarketdataConnector/bin/Debug/net9.0/log/
-├── FIX.4.4-BinanceFixMarketdataConnector-SPOT.event.current.log
-└── FIX.4.4-BinanceFixMarketdataConnector-SPOT.messages.current.log
+├── FIX.4.4-{SenderCompID}-SPOT.event.current.log
+└── FIX.4.4-{SenderCompID}-SPOT.messages.current.log
 ```
+
+Where `{SenderCompID}` is configured in `config/fix_config.cfg` (default: `BFMConn`)
 
 - **event.current.log** - Connection events, logon/logout
 - **messages.current.log** - Raw FIX messages (human-readable)
@@ -464,7 +466,7 @@ BinanceFixMarketdataConnector/
     │
     ├── config/                                 # Configuration files
     │   ├── settings.json                       # App settings (gitignored)
-    │   ├── settings.example.json              # Example settings
+    │   ├── settings.json.example              # Example settings
     │   ├── fix_config.cfg                      # QuickFIX configuration
     │   └── binance-spot-fix-md.xml            # FIX data dictionary
     │
