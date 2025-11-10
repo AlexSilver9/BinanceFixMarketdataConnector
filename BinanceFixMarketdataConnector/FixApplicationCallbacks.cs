@@ -66,7 +66,7 @@ public class FixApplicationCallbacks(
                 if (message.IsSetField(Tags.Text))
                     details.Append($", Text={message.GetString(Tags.Text)}");
                 logger.LogError("{Details}", details.ToString());
-                OnStatusChanged?.Invoke(this, "Authentication Failed - Message Rejected");
+                OnStatusChanged?.Invoke(this, "Message Rejected");
                 break;
             case var _ when msgType == FixConstants.MsgTypes.Logout:
                 var reason = message.IsSetField(Tags.Text) ? message.GetString(Tags.Text) : "";

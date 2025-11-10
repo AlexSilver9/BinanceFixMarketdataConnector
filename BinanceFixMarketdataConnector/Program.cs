@@ -79,13 +79,16 @@ try
     }
 
     logger.LogInformation("FIX session established!");
-    
-    // Subscribe to market data
-    var symbols = new[] { ("BTCUSDC", "MD001"), ("ETHUSDC", "MD002") };
-    foreach (var (symbol, mdStreamId) in symbols)
+
+    // Subscribe to market data - generate request IDs dynamically
+    var symbols = config.Binance.Symbols
+        .Select((symbol, index) => (Symbol: symbol, RequestId: $"MD-{symbol}-{(index + 1):D3}"))
+        .ToArray();
+
+    foreach (var (symbol, requestId) in symbols)
     {
         logger.LogInformation("Subscribing to {Symbol}...", symbol);
-        connector.SubscribeMarketData(symbol, mdStreamId);
+        connector.SubscribeMarketData(symbol, requestId);
     }
 
     // Keep running until user quits
@@ -111,8 +114,8 @@ try
 
     // Cleanup
     logger.LogInformation("Shutting down...");
-    foreach (var (_, id) in symbols)
-        connector.UnsubscribeMarketData(id);
+    foreach (var (_, requestId) in symbols)
+        connector.UnsubscribeMarketData(requestId);
     Thread.Sleep(1000);
 
     connector.Logout();

@@ -14,7 +14,7 @@ A .NET 9.0 console application that connects to Binance's FIX protocol market da
 - ✅ **Ed25519 signature authentication** for secure API access
 - ✅ **FIX 4.4 protocol** implementation using QuickFIXn
 - ✅ **Order book snapshots** and incremental updates
-- ✅ **BTC/USDC & ETH/USDC symbol subscriptions** with efficient caching
+- ✅ **Multiple configurable symbol subscriptions** with efficient caching
 - ✅ **Configurable logging** with structured output
 - ✅ **Environment variable support** for credential management
 - ✅ **SSL/TLS support** via stunnel proxy
@@ -138,10 +138,43 @@ Copy the example and edit `BinanceFixMarketdataConnector/config/settings.json` f
   "Binance": {
     "ApiKeyPath": "keys/api.key",
     "ApiKey": "",
-    "PrivateKeyPath": "keys/private.ed25519.pem"
+    "PrivateKeyPath": "keys/private.ed25519.pem",
+    "Symbols": ["BTCUSDC", "ETHUSDC", "SOLUSDC", "ADAUSDC"]
   },
   "Logging": {
     "LogLevel": "Information"
+  }
+}
+```
+
+### Subscribing to Symbols
+
+Binance may have limits on the maximum number of subscriptions.
+
+#### Per environment variable
+
+Overrides configuration:
+
+```shell
+export BINANCE_SYMBOLS=BTCUSDC,ETHUSDC
+
+# or with quotes:
+export BINANCE_SYMBOLS="BTCUSDC,ETHUSDC"
+```
+
+#### Per configuration
+
+Edit symbols to subscribe market data for in the struct `Binance.Symbols` in `BinanceFixMarketdataConnector/config/settings.json`:
+
+```json
+{
+  "Binance": {
+    ... other configs
+        
+    "Symbols": [
+        "BTCUSDC",
+        "ETHUSDC"
+    ];
   }
 }
 ```
@@ -163,18 +196,6 @@ HeartBtInt=30
 ```
 
 **Important:** `SocketConnectHost` and `SocketConnectPort` should point to your stunnel proxy, not directly to Binance.
-
-### Subscribing to Symbols
-
-Edit symbols in `BinanceFixMarketdataConnector/BinanceFixMarketdataConnector/Program.cs`:
-
-```csharp
-var symbols = new[] {
-    ("BTCUSDC", "MD001"),
-    ("ETHUSDC", "MD002"),
-    ("SOLUSDC", "MD003")  // Add more symbols
-};
-```
 
 ## Usage
 
@@ -205,6 +226,7 @@ Once running, use these keyboard commands:
 2025-01-09T12:34:58.456Z info: Status: Logged In
 2025-01-09T12:34:58.457Z info: FIX session established!
 2025-01-09T12:34:58.458Z info: Subscribing to BTCUSDC...
+2025-01-09T12:34:58.459Z info: Subscribing to ETHUSDC...
 2025-01-09T12:34:58.789Z info: BTCUSDC: Bid 42150.50@1.25000000 Ask 42151.00@0.87000000 Last 42150.75@0.15000000
 2025-01-09T12:34:59.123Z info: ETHUSDC: Bid 2234.25@5.50000000 Ask 2234.50@3.20000000 Last 2234.30@1.00000000
 ```
@@ -415,7 +437,7 @@ netstat -ano | findstr :9001  # Windows
 # Check for MarketDataReject (MsgType=Y) in logs
 grep "MDReqRejReason" bin/Debug/net9.0/log/*.messages.current.log
 
-# Verify symbol exists (use USDC not USDT for FIX API)
+# Verify symbol exists
 # Correct: BTCUSDC, ETHUSDC
 # Wrong: BTCUSDT, ETHUSDT (may not be available via FIX)
 
@@ -463,22 +485,22 @@ BinanceFixMarketdataConnector/
 ├── .gitignore                                  # Git ignore rules
 │
 └── BinanceFixMarketdataConnector/             # Main project
-    ├── BinanceFixMarketdataConnector.csproj   # Project file
+    ├── BinanceFixMarketdataConnector.csproj    # Project file
     ├── Program.cs                              # Entry point
     │
-    ├── config/                                 # Configuration files
+    ├── config/                                # Configuration files
     │   ├── settings.json                       # App settings (gitignored)
-    │   ├── settings.json.example              # Example settings
+    │   ├── settings.json.example               # Example settings
     │   ├── fix_config.cfg                      # QuickFIX configuration
-    │   └── binance-spot-fix-md.xml            # FIX data dictionary
+    │   └── binance-spot-fix-md.xml             # FIX data dictionary
     │
-    ├── keys/                                   # API credentials (gitignored)
-    │   ├── api.key                             # Binance API key
-    │   ├── api.key.example                    # Example API key
-    │   ├── private.ed25519.pem                # Ed25519 private key
-    │   └── private.ed25519.pem.example        # Example private key
+    ├── keys/                                  # API credentials
+    │   ├── api.key                             # Binance API key (gitignored)
+    │   ├── api.key.example                     # Example API key
+    │   ├── private.ed25519.pem                 # Ed25519 private key (gitignored)
+    │   └── private.ed25519.pem.example         # Example private key
     │
-    ├── ApplicationConfiguration.cs             # Config loader
+    ├── ApplicationConfiguration.cs            # Config loader
     ├── Ed25519AuthenticationHandler.cs        # Authentication
     ├── DebugLogger.cs                         # QuickFIX logger
     ├── FixApplicationCallbacks.cs             # QuickFIX callbacks

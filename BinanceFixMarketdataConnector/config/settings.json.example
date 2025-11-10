@@ -13,7 +13,16 @@
     "//PrivateKeyPath": "Path to your Ed25519 private key file (PEM format).",
     "//PrivateKeyGeneration": "To generate a key file, see: https://www.binance.com/en/support/faq/detail/6b9a63f1e3384cf48a2eedb82767a69a",
     "//PrivateKeyPathEnvironment": "You can also set BINANCE_PRIVATE_KEY_PATH as environment variable",
-    "PrivateKeyPath": "keys/private.ed25519.pem"
+    "PrivateKeyPath": "keys/private.ed25519.pem",
+
+    "//Symbols": "List of trading symbols to subscribe to for market data",
+    "//SymbolsEnvironment": "You can also set BINANCE_SYMBOLS as environment variable (comma or semicolon separated, e.g., 'BTCUSDC,ETHUSDC')",
+    "Symbols": [
+        "BTCUSDC",
+        "ETHUSDC",
+        "SOLUSDC",
+        "ADAUSDC"
+    ]
   },
   
   "Logging": {

@@ -36,6 +36,19 @@ public class ApplicationConfiguration
         config.Logging.LogLevel = Environment.GetEnvironmentVariable("LOG_LEVEL")
             ?? config.Logging.LogLevel;
 
+        // Parse symbols from environment variable (comma or semicolon separated)
+        var symbolsEnv = Environment.GetEnvironmentVariable("BINANCE_SYMBOLS");
+        if (!string.IsNullOrWhiteSpace(symbolsEnv))
+        {
+            config.Binance.Symbols = symbolsEnv
+                .Trim()
+                .Trim('"', '\'')  // Remove surrounding quotes from the entire string
+                .Split([',', ';'], StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim().Trim('"', '\''))  // Remove quotes from each symbol
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .ToArray();
+        }
+
         return config;
     }
 
@@ -60,6 +73,7 @@ public class BinanceConfiguration
     public string ApiKeyPath { get; set; } = string.Empty;
     public string ApiKey { get; set; } = string.Empty;
     public string PrivateKeyPath { get; set; } = string.Empty;
+    public string[] Symbols { get; set; } = [];
 }
 
 public class LoggingSettings
